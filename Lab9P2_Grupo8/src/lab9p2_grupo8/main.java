@@ -7,6 +7,7 @@ package lab9p2_grupo8;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+
 /**
  *
  * @author evaja
@@ -527,11 +528,11 @@ public class main extends javax.swing.JFrame {
 
     private void jb_agregarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_agregarRMouseClicked
         // TODO add your handling code here:
-        
+
         DBA db = new DBA("./DataBase1.mdb");
         db.conectar();
         try {
-          
+
             String orderid = jt_ordenID.getText();
             String orderdate = jt_orderDate.getText();
             String shipDate = jt_shipDate.getText();
@@ -541,29 +542,29 @@ public class main extends javax.swing.JFrame {
             String Segment = jt_segment.getText();
             String Country = jt_contry.getText();
             String city = jt_city.getText();
-            
-            
-            
-            
-            db.query.execute("INSERT INTO TenRecord");
-            
+            String state = jt_state.getText();
+            String postcode = jt_PC.getText();
+            String region = jt_region.getText();
+            String productoid = jt_productID.getText();
+            String category = jt_category.getText();
+            String subcate = jt_subCate.getText();
+            String productname = jt_productName.getText();
+            String sales = jt_sales.getText();
+            String quantity = jt_quantity.getText();
+            String discount = jt_discount.getText();
+            String profit = jt_profit.getText();
+
+            db.query.execute("INSERT INTO TenRecord "
+                    + "(Order ID,Order Date,Ship Date,Ship Mode,Customer ID,Customer Name,Segment,Country,City,State,Postal Code,Region,Product ID,Category,Sub-Category,Product Name, Sales,Quantity,Discount,Profit) "
+                    + "values('" + orderid + "','" + orderdate + "','" + shipDate + "','" + shipMode + "','" + CustomerId + "','" + CustomerName + "','" + Segment + "','" + Country + "','" + city + "','" + state + "','" + postcode + "','" + region + "','" + productoid + "','" + category + "','" + subcate + "','" + productname + "','" + sales + "','" + quantity + "','" + discount + "','" + profit + ")");
+
             db.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         db.desconectar();
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_jb_agregarRMouseClicked
 
     /**
