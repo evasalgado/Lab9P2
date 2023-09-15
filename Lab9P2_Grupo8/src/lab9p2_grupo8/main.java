@@ -123,7 +123,9 @@ public class main extends javax.swing.JFrame {
         });
 
         jLabel8.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jLabel8.setText("Order Order:");
+        jLabel8.setText("Order Date:");
+
+        jt_orderDate.setToolTipText("dd/MM/yyyy\n");
 
         jLabel9.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel9.setText("Customer ID::");
@@ -142,6 +144,8 @@ public class main extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel14.setText("Ship Date:");
+
+        jt_shipDate.setToolTipText("dd/MM/yyyy");
 
         jLabel15.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel15.setText("Customer Name:");
