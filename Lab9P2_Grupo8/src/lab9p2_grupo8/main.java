@@ -381,6 +381,11 @@ public class main extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("Orders");
+        jLabel22.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel22MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -565,7 +570,8 @@ public class main extends javax.swing.JFrame {
             String profit = jt_profit.getText();
             System.out.println("su");
             
-            db.query.execute("INSERT INTO TenRecord values('10',"+orderid+"','"+orderdate+"','"+shipDate+"','"+shipMode+"','"+CustomerId+"','"+ CustomerName+"','"+Segment+"','"+Country+"','"+city+"','"+state+"','"+postcode+"','"+region+"','"+productoid+"','"+category+"','"+subcate+"','"+productname+"','"+sales+"','"+quantity+"','"+discount+"','"+profit+"')");
+            db.query.execute("INSERT INTO TenRecord(OrderID,OrderDate,ShipDate,ShipMode,CustomerID,CustomerName,Segment,Country,City,State,PostalCode,Region,ProductID,Category,SubCategory,ProductName,Sales,Quantity,Discount,Profit)"
+                    + "values('"+orderid+"','"+orderdate+"','"+shipDate+"','"+shipMode+"','"+CustomerId+"','"+ CustomerName+"','"+Segment+"','"+Country+"','"+city+"','"+state+"','"+postcode+"','"+region+"','"+productoid+"','"+category+"','"+subcate+"','"+productname+"','"+sales+"','"+quantity+"','"+discount+"','"+profit+"')");
 
             JOptionPane.showMessageDialog(null, "fue creado");
             db.commit();
@@ -576,6 +582,10 @@ public class main extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jb_agregarRMouseClicked
+
+    private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
+        
+    }//GEN-LAST:event_jLabel22MouseClicked
 
     /**
      * @param args the command line arguments
