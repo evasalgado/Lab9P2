@@ -447,7 +447,6 @@ public class main extends javax.swing.JFrame {
         jButton2.setText("Clear");
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 10, 110, 60));
 
-        jList1.setModel(new  DefaultListModel(););
         jScrollPane1.setViewportView(jList1);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 770, 470));
