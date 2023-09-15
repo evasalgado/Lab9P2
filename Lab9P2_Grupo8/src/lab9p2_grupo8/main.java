@@ -7,6 +7,12 @@ package lab9p2_grupo8;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import javax.naming.spi.DirStateFactory.Result;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -533,10 +539,10 @@ public class main extends javax.swing.JFrame {
     private void jb_agregarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_agregarRMouseClicked
         // TODO add your handling code here:
 
-        DBA db = new DBA("./Database1.mdb");
+        DBA db = new DBA("./DataBase.mdb");
         db.conectar();
         try {
-
+            System.out.println("hola");
             String orderid = jt_ordenID.getText();
             String orderdate = jt_orderDate.getText();
             String shipDate = jt_shipDate.getText();
@@ -557,10 +563,9 @@ public class main extends javax.swing.JFrame {
             String quantity = jt_quantity.getText();
             String discount = jt_discount.getText();
             String profit = jt_profit.getText();
-
-            db.query.execute("INSERT INTO TenRecord "
-                    + "(Order ID,Order Date,Ship Date,Ship Mode,Customer ID,Customer Name,Segment,Country,City,State,Postal Code,Region,Product ID,Category,Sub-Category,Product Name, Sales,Quantity,Discount,Profit) "
-                    + "values('" + orderid + "','" + orderdate + "','" + shipDate + "','" + shipMode + "','" + CustomerId + "','" + CustomerName + "','" + Segment + "','" + Country + "','" + city + "','" + state + "','" + postcode + "','" + region + "','" + productoid + "','" + category + "','" + subcate + "','" + productname + "','" + sales + "','" + quantity + "','" + discount + "','" + profit + ")");
+            System.out.println("su");
+            
+            db.query.execute("INSERT INTO TenRecord values('10',"+orderid+"','"+orderdate+"','"+shipDate+"','"+shipMode+"','"+CustomerId+"','"+ CustomerName+"','"+Segment+"','"+Country+"','"+city+"','"+state+"','"+postcode+"','"+region+"','"+productoid+"','"+category+"','"+subcate+"','"+productname+"','"+sales+"','"+quantity+"','"+discount+"','"+profit+"')");
 
             JOptionPane.showMessageDialog(null, "fue creado");
             db.commit();
