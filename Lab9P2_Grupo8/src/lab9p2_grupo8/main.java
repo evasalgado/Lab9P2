@@ -529,7 +529,7 @@ public class main extends javax.swing.JFrame {
     private void jb_agregarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_agregarRMouseClicked
         // TODO add your handling code here:
 
-        DBA db = new DBA("./DataBase1.mdb");
+        DBA db = new DBA("./Database1.mdb");
         db.conectar();
         try {
 
@@ -558,6 +558,7 @@ public class main extends javax.swing.JFrame {
                     + "(Order ID,Order Date,Ship Date,Ship Mode,Customer ID,Customer Name,Segment,Country,City,State,Postal Code,Region,Product ID,Category,Sub-Category,Product Name, Sales,Quantity,Discount,Profit) "
                     + "values('" + orderid + "','" + orderdate + "','" + shipDate + "','" + shipMode + "','" + CustomerId + "','" + CustomerName + "','" + Segment + "','" + Country + "','" + city + "','" + state + "','" + postcode + "','" + region + "','" + productoid + "','" + category + "','" + subcate + "','" + productname + "','" + sales + "','" + quantity + "','" + discount + "','" + profit + ")");
 
+            JOptionPane.showMessageDialog(null, "fue creado");
             db.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
