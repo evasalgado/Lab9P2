@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -479,9 +480,10 @@ public class main extends javax.swing.JFrame {
         jButton2.setText("Clear");
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 10, 110, 60));
 
+        jList1.setModel(new DefaultListModel());
         jScrollPane1.setViewportView(jList1);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 770, 470));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 770, 470));
 
         jTabbedPane1.addTab("Listar Registros", jPanel2);
 
@@ -590,8 +592,8 @@ public class main extends javax.swing.JFrame {
 
     private void jb_agregarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_agregarRMouseClicked
         // TODO add your handling code here:
-int num = 6;
-Color col = Color.magenta;
+        int num = 6;
+        Color col = Color.magenta;
         DBA db = new DBA("./DataBase.mdb");
         db.conectar();
         try {
@@ -621,12 +623,12 @@ Color col = Color.magenta;
             db.query.execute("INSERT INTO TenRecord(OrderID,OrderDate,ShipDate,ShipMode,CustomerID,CustomerName,Segment,Country,City,State,PostalCode,Region,ProductID,Category,SubCategory,ProductName,Sales,Quantity,Discount,Profit)"
                     + "values('" + orderid + "','" + orderdate + "','" + shipDate + "','" + shipMode + "','" + CustomerId + "','" + CustomerName + "','" + Segment + "','" + Country + "','" + city + "','" + state + "','" + postcode + "','" + region + "','" + productoid + "','" + category + "','" + subcate + "','" + productname + "','" + sales + "','" + quantity + "','" + discount + "','" + profit + "')");
 
-            ab = new Barra(pg_1,num, col);
+            ab = new Barra(pg_1, num, col);
             ab.start();
             Thread proceso2 = new Thread();
             proceso2.start();
             ab.sleep(100);
-            
+
             JOptionPane.showMessageDialog(null, "fue creado");
 
             db.commit();
@@ -642,20 +644,43 @@ Color col = Color.magenta;
 
     private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
 
+        DefaultListModel modelo1
+                = (DefaultListModel) jList1.getModel();
+
+        DBA db = new DBA("./DataBase.mdb");
+        db.conectar();
+        try {
+            db.query.execute("Select a.id,a.OrderID,a.OrderDate,a.ShipDate,a.ShipMode,a.CustomerID\n"
+                    + " from TenRecord a ");
+            ResultSet rs = db.query.getResultSet();
+            Object[] datos1 = new Object[5];
+            while (rs.next()) {
+
+                datos1[0] = rs.getString(1);
+                datos1[1] = rs.getString(2);
+                datos1[2] = rs.getString(3);
+                datos1[3] = rs.getString(4);
+                datos1[4] = rs.getString(5);
+                for (int i = 0; i < datos1.length; i++) {
+                     modelo1.addElement(datos1[i]);
+                }
+            
+            }
+
+            jList1.setModel(modelo1);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+
+
     }//GEN-LAST:event_jLabel22MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
 
-    
-    
-    
-         
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
 
-     
-        
-         
         DBA db = new DBA("./DataBase.mdb");
         db.conectar();
         try {
@@ -678,9 +703,8 @@ Color col = Color.magenta;
             }
 
             jTable1.setModel(modelo);
-          
- 
-          modelo.fireTableDataChanged();
+
+            modelo.fireTableDataChanged();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -691,33 +715,28 @@ Color col = Color.magenta;
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
-        
+
         int seleccion = jTable1.getSelectedRow();
-      
+
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-        
-       
-     
+
         System.out.println(jTable1.getValueAt(seleccion, 0));
-        
- 
+
         System.out.println(jTable1.getValueAt(seleccion, 0));
-      
-         DBA db = new DBA("./DataBase.mdb");
+
+        DBA db = new DBA("./DataBase.mdb");
         db.conectar();
         try {
-            db.query.execute("delete from TenRecord where id="+jTable1.getValueAt(seleccion, 0));
+            db.query.execute("delete from TenRecord where id=" + jTable1.getValueAt(seleccion, 0));
             db.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         db.desconectar();
-          jTable1.setModel(modelo);
-        
+        jTable1.setModel(modelo);
+
 //        
-        
-        
-        
+
     }//GEN-LAST:event_jButton4MouseClicked
 
     /**
