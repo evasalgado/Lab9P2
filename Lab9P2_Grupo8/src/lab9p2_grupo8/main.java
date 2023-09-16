@@ -4,6 +4,7 @@
  */
 package lab9p2_grupo8;
 
+import java.awt.Color;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -11,6 +12,8 @@ import javax.naming.spi.DirStateFactory.Result;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -587,7 +590,8 @@ public class main extends javax.swing.JFrame {
 
     private void jb_agregarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_agregarRMouseClicked
         // TODO add your handling code here:
-
+int num = 6;
+Color col = Color.magenta;
         DBA db = new DBA("./DataBase.mdb");
         db.conectar();
         try {
@@ -617,16 +621,19 @@ public class main extends javax.swing.JFrame {
             db.query.execute("INSERT INTO TenRecord(OrderID,OrderDate,ShipDate,ShipMode,CustomerID,CustomerName,Segment,Country,City,State,PostalCode,Region,ProductID,Category,SubCategory,ProductName,Sales,Quantity,Discount,Profit)"
                     + "values('" + orderid + "','" + orderdate + "','" + shipDate + "','" + shipMode + "','" + CustomerId + "','" + CustomerName + "','" + Segment + "','" + Country + "','" + city + "','" + state + "','" + postcode + "','" + region + "','" + productoid + "','" + category + "','" + subcate + "','" + productname + "','" + sales + "','" + quantity + "','" + discount + "','" + profit + "')");
 
-            ab = new Barra(pg_1);
+            ab = new Barra(pg_1,num, col);
             ab.start();
             Thread proceso2 = new Thread();
             proceso2.start();
-
+            ab.sleep(100);
+            
             JOptionPane.showMessageDialog(null, "fue creado");
 
             db.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
         db.desconectar();
 
