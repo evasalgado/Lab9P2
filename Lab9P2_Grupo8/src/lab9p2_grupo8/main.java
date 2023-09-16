@@ -390,16 +390,15 @@ public class main extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 4, Short.MAX_VALUE)
-                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 4, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, 150, 80));
@@ -410,6 +409,11 @@ public class main extends javax.swing.JFrame {
         jLabel23.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setText("Products");
+        jLabel23.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel23MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -428,12 +432,17 @@ public class main extends javax.swing.JFrame {
 
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 160, 80));
 
-        jPanel6.setBackground(new java.awt.Color(255, 204, 0));
+        jPanel6.setBackground(new java.awt.Color(255, 153, 51));
 
-        jLabel24.setBackground(new java.awt.Color(255, 204, 0));
+        jLabel24.setBackground(new java.awt.Color(255, 153, 51));
         jLabel24.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel24.setText("Details");
+        jLabel24.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel24MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -458,6 +467,11 @@ public class main extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setText("Customers ");
+        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel21MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -478,6 +492,11 @@ public class main extends javax.swing.JFrame {
         jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 170, 80));
 
         jButton2.setText("Clear");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 10, 110, 60));
 
         jList1.setModel(new DefaultListModel());
@@ -592,8 +611,9 @@ public class main extends javax.swing.JFrame {
 
     private void jb_agregarRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jb_agregarRMouseClicked
         // TODO add your handling code here:
+        pg_1.setValue(0);
         int num = 6;
-        Color col = Color.magenta;
+        Color col = Color.yellow;
         DBA db = new DBA("./DataBase.mdb");
         db.conectar();
         try {
@@ -643,7 +663,21 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jb_agregarRMouseClicked
 
     private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
+        pg_1.setValue(0);
+        int num = 4;
+        Color col = Color.green;
+        ab = new Barra(pg_1, num, col);
+        ab.start();
+        Thread proceso2 = new Thread();
+        proceso2.start();
 
+        try {
+            ab.sleep(100);
+            JOptionPane.showMessageDialog(this, "Ordenes cargadas exitosamente");
+        } catch (InterruptedException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "fallo en la carga de lista");
+        }
         DefaultListModel modelo1
                 = (DefaultListModel) jList1.getModel();
 
@@ -653,7 +687,7 @@ public class main extends javax.swing.JFrame {
             db.query.execute("Select a.id,a.OrderID,a.OrderDate,a.ShipDate,a.ShipMode,a.CustomerID\n"
                     + " from TenRecord a ");
             ResultSet rs = db.query.getResultSet();
-            Object[] datos1 = new Object[5];
+            Object[] datos1 = new Object[6];
             while (rs.next()) {
 
                 datos1[0] = rs.getString(1);
@@ -661,10 +695,11 @@ public class main extends javax.swing.JFrame {
                 datos1[2] = rs.getString(3);
                 datos1[3] = rs.getString(4);
                 datos1[4] = rs.getString(5);
+                datos1[5] = rs.getString(6);
                 for (int i = 0; i < datos1.length; i++) {
-                     modelo1.addElement(datos1[i]);
+                    modelo1.addElement(datos1[i]);
                 }
-            
+
             }
 
             jList1.setModel(modelo1);
@@ -678,9 +713,9 @@ public class main extends javax.swing.JFrame {
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         // TODO add your handling code here:
-
+        
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-
+        modelo.setRowCount(0);
         DBA db = new DBA("./DataBase.mdb");
         db.conectar();
         try {
@@ -715,29 +750,202 @@ public class main extends javax.swing.JFrame {
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
-
         int seleccion = jTable1.getSelectedRow();
-
+ 
+        if (seleccion>=0) {
+             pg_1.setValue(0);
+        int num = 5;
+        Color col = Color.MAGENTA;
+        ab = new Barra(pg_1, num, col);
+        ab.start();
+        Thread proceso2 = new Thread();
+        proceso2.start();
+        
+        
+        
+        
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-
-        System.out.println(jTable1.getValueAt(seleccion, 0));
-
-        System.out.println(jTable1.getValueAt(seleccion, 0));
+        
 
         DBA db = new DBA("./DataBase.mdb");
+
         db.conectar();
         try {
+            
             db.query.execute("delete from TenRecord where id=" + jTable1.getValueAt(seleccion, 0));
             db.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            
         }
         db.desconectar();
+        try {
+            ab.sleep(100);
+            JOptionPane.showMessageDialog(this, "Elemento eliminado exitosamente");
+        } catch (InterruptedException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "fallo en la eliminacion de elemento");
+        }
         jTable1.setModel(modelo);
-
-//        
+        } else {
+            JOptionPane.showMessageDialog(this, "no ha seleccionado nada");
+        }
+        
+ 
 
     }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jLabel24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel24MouseClicked
+        pg_1.setValue(0);
+        int num = 5;
+        Color col = Color.orange;
+        ab = new Barra(pg_1, num, col);
+        ab.start();
+        Thread proceso2 = new Thread();
+        proceso2.start();
+        try {
+            ab.sleep(100);
+            JOptionPane.showMessageDialog(this, "Detalles cargadas exitosamente");
+        } catch (InterruptedException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "fallo en la carga de lista");
+
+        }
+        DefaultListModel modelo1
+                = (DefaultListModel) jList1.getModel();
+        modelo1.clear();
+        DBA db = new DBA("./DataBase.mdb");
+        db.conectar();
+        try {
+            db.query.execute("Select a.id,a.OrderID,a.ProductID,a.Quantity,a.Discount,a.Profit\n"
+                    + " from TenRecord a ");
+            ResultSet rs = db.query.getResultSet();
+            Object[] datos1 = new Object[7];
+            while (rs.next()) {
+
+                datos1[0] = rs.getString(1);
+                datos1[1] = rs.getString(2);
+                datos1[2] = rs.getString(3);
+                datos1[3] = rs.getString(4);
+                datos1[4] = rs.getString(5);
+                datos1[5] = rs.getString(6);
+                datos1[6] = rs.getString(7);
+                for (int i = 0; i < datos1.length; i++) {
+                    modelo1.addElement(datos1[i]);
+                }
+
+            }
+
+            jList1.setModel(modelo1);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+
+    }//GEN-LAST:event_jLabel24MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        pg_1.setValue(0);
+        DefaultListModel modelo1
+                = (DefaultListModel) jList1.getModel();
+        modelo1.clear();
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
+        pg_1.setValue(0);
+        int num = 5;
+        Color col = Color.red;
+        ab = new Barra(pg_1, num, col);
+        ab.start();
+        Thread proceso2 = new Thread();
+        proceso2.start();
+        try {
+            ab.sleep(100);
+            JOptionPane.showMessageDialog(this, "Clientes cargados exitosamente");
+        } catch (InterruptedException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "fallo en la carga de lista");
+
+        }
+        DefaultListModel modelo1
+                = (DefaultListModel) jList1.getModel();
+        modelo1.clear();
+        DBA db = new DBA("./DataBase.mdb");
+        db.conectar();
+        try {
+            db.query.execute("Select a.id,a.CustomerID,a.CustomerName,a.Segment,a.Country,a.City,a.State,a.PostalCode,a.Region\n"
+                    + " from TenRecord a ");
+            ResultSet rs = db.query.getResultSet();
+            Object[] datos1 = new Object[9];
+            while (rs.next()) {
+
+                datos1[0] = rs.getString(1);
+                datos1[1] = rs.getString(2);
+                datos1[2] = rs.getString(3);
+                datos1[3] = rs.getString(4);
+                datos1[4] = rs.getString(5);
+                datos1[5] = rs.getString(6);
+                datos1[6] = rs.getString(7);
+                datos1[7] = rs.getString(8);
+                datos1[8] = rs.getString(9);
+                for (int i = 0; i < datos1.length; i++) {
+                    modelo1.addElement(datos1[i]);
+                }
+
+            }
+
+            jList1.setModel(modelo1);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+    }//GEN-LAST:event_jLabel21MouseClicked
+
+    private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MouseClicked
+        pg_1.setValue(0);
+        int num = 3;
+        Color col = Color.BLUE;
+        ab = new Barra(pg_1, num, col);
+        ab.start();
+        Thread proceso2 = new Thread();
+        proceso2.start();
+        try {
+            ab.sleep(100);
+            JOptionPane.showMessageDialog(this, "Productos cargados exitosamente");
+        } catch (InterruptedException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "fallo en la carga de lista");
+
+        }
+        DefaultListModel modelo1
+                = (DefaultListModel) jList1.getModel();
+        modelo1.clear();
+        DBA db = new DBA("./DataBase.mdb");
+        db.conectar();
+        try {
+            db.query.execute("Select a.id,a.ProductID,a.Category,a.SubCategory,a.ProductName\n"
+                    + " from TenRecord a ");
+            ResultSet rs = db.query.getResultSet();
+            Object[] datos1 = new Object[5];
+            while (rs.next()) {
+
+                datos1[0] = rs.getString(1);
+                datos1[1] = rs.getString(2);
+                datos1[2] = rs.getString(3);
+                datos1[3] = rs.getString(4);
+                datos1[4] = rs.getString(5);
+                for (int i = 0; i < datos1.length; i++) {
+                    modelo1.addElement(datos1[i]);
+                }
+
+            }
+
+            jList1.setModel(modelo1);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+    }//GEN-LAST:event_jLabel23MouseClicked
 
     /**
      * @param args the command line arguments
